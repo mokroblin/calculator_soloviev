@@ -17,28 +17,28 @@ jobs:
             - name: build project
               run: dotnet build calculator_soloviev/calculator_soloviev.csproj --configuration Release
     build-debug:
-      runs on: ubuntu-latest
-      steps:
-       - name:
-         uses: actions/checkout@v4
-       - name: Setup .NET
-         uses: actions/setup-dotnet@v4
-         with:
-           dotnet-version: '8.0.x'
-       - name: Build Debug
-         run: dotnet build calculator_soloviev/calculator_soloviev.csproj --configuration Debug
+        runs on: ubuntu-latest
+        steps:
+         - name:
+           uses: actions/checkout@v4
+         - name: Setup .NET
+           uses: actions/setup-dotnet@v4
+           with:
+             dotnet-version: '8.0.x'
+         - name: Build Debug
+           run: dotnet build calculator_soloviev/calculator_soloviev.csproj --configuration Debug
     test:
-      needs: [build-release, build-debug]
-      runs-on: ubuntu-latest
-      strategy:
-        matrix:
-          configuration: [Debug, Release]
-      steps:
-          - name: Checkout Code
-            uses: actions/checkout@v4
-          - name: Setup .Net
-            uses: actions/setup-dotnet@v4
-            with:    
-              dotnet-version: '8.0.x'
-          - name: Run tests
-            run: dotnet test Calculator.Tests/Calculator.Tests.csproj --configuration ${{matrix.configuration}}   
+        needs: [build-release, build-debug]
+        runs-on: ubuntu-latest
+        strategy:
+          matrix:
+            configuration: [Debug, Release]
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+            - name: Setup .Net
+              uses: actions/setup-dotnet@v4
+              with:    
+                dotnet-version: '8.0.x'
+            - name: Run tests
+              run: dotnet test Calculator.Tests/Calculator.Tests.csproj --configuration ${{matrix.configuration}}   
