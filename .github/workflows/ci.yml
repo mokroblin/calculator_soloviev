@@ -16,16 +16,16 @@ jobs:
               run: dotnet restore
             - name: build project
               run: dotnet build calculator_soloviev/calculator_soloviev.csproj --configuration Release
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    strategy:
-    steps:
-        - name: Checkout Code
-          uses: actions/checkout@v4
-        - name: Setup .Net
-          uses: actions/setup-dotnetv@4
-          with:    
-            dotnet-version: '8.0.x'
-        - name: Run tests
-          run: dotnet test Calculator.Tests/Calculator.Tests.csproj    
+    test:
+      needs: build
+      runs-on: ubuntu-latest
+      strategy:
+      steps:
+          - name: Checkout Code
+            uses: actions/checkout@v4
+          - name: Setup .Net
+            uses: actions/setup-dotnetv@4
+            with:    
+              dotnet-version: '8.0.x'
+          - name: Run tests
+            run: dotnet test Calculator.Tests/Calculator.Tests.csproj    
