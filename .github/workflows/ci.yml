@@ -1,0 +1,31 @@
+name: Sequential Workflow
+on: [push]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup .NET
+              uses: actions/setup-dotnet@v4
+              with:
+                dotnet-version: '8.0.x'
+            - name: Restore dependencies
+              run: dotnet restore
+            - name: build project
+              run: dotnet build calculator_soloviev/calculator_soloviev.csproj --configuration Release
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+    steps:
+        - name: Checkout Code
+          uses: actions/checkout@v4
+        - name: Setup .Net
+          uses: actions/setup-dotnetv@4
+          with:    
+            dotnet-version: '8.0.x'
+        - name: Run tests
+          run: dotnet test Calculator.Tests/Calculator.Tests.csproj    
