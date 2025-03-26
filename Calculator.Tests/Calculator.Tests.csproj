@@ -18,4 +18,8 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\calculator_soloviev\calculator_soloviev.csproj" />
+  </ItemGroup>
+
 </Project>
