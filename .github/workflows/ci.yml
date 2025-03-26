@@ -19,7 +19,6 @@ jobs:
     test:
       needs: build
       runs-on: ubuntu-latest
-      strategy:
       steps:
           - name: Checkout Code
             uses: actions/checkout@v4
