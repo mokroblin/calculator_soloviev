@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace сalculator_soloviev
+namespace calculator_soloviev
 {
     class Program
     {
@@ -17,34 +17,28 @@ namespace сalculator_soloviev
             Console.WriteLine("Выберите второе число:");
             double num2 = Convert.ToDouble(Console.ReadLine());
 
-            double result = 0;
-
-            switch (operation)
+            try
             {
-                case '+':
-                    result = num1 + num2;
-                    break;
-                case '-':
-                    result = num1 - num2;
-                    break;
-                case '*':
-                    result = num1 * num2;
-                    break;
-                case '/':
-                    if (num2 != 0)
-                        result = num1 / num2;
-                    else
-                    {
-                        Console.WriteLine("Ай-ай-ай. На ноль делить незя.");
-                        return;
-                    }
-                    break;
-                default:
-                    Console.WriteLine("Неправильная операция. Выберите одну из списка: +, -, *, /");
-                    return;
+                double result = Calculate(num1, num2, operation);
+                Console.WriteLine($"{num1} {operation} {num2} = {result}");
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ай-ай-ай: {ex.Message}");
+            }
+        }
 
-            Console.WriteLine($"{num1} {operation} {num2} = {result}");
+        // Метод для выполнения вычислений
+        public static double Calculate(double num1, double num2, char operation)
+        {
+            return operation switch
+            {
+                '+' => num1 + num2,
+                '-' => num1 - num2,
+                '*' => num1 * num2,
+                '/' => num2 != 0 ? num1 / num2 : throw new DivideByZeroException("Делить на ноль незя"),
+                _ => throw new InvalidOperationException("Неверная операция. Выберите одну из списка: +, -, *, /")
+            };
         }
     }
 }
