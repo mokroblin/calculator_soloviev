@@ -17,7 +17,7 @@ jobs:
             - name: build project
               run: dotnet build calculator_soloviev/calculator_soloviev.csproj --configuration Release
     build-debug:
-        runs on: ubuntu-latest
+        runs-on: ubuntu-latest
         steps:
          - name:
            uses: actions/checkout@v4
