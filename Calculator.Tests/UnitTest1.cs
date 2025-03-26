@@ -1,6 +1,5 @@
 ﻿using Xunit;
 using calculator_soloviev;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 
 public class CalculatorTests
 {
