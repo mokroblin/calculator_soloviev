@@ -1,4 +1,4 @@
-name: Def Workflow
+name: Parallel Workflow
 on: [push]
 
 jobs:
@@ -16,6 +16,9 @@ jobs:
     test:
         needs: build-debug
         runs-on: ubuntu-latest
+        strategy:
+          matrix:
+            configuration: [Debug]
         steps:
             - name: Checkout Code
               uses: actions/checkout@v4
@@ -24,4 +27,12 @@ jobs:
               with:    
                 dotnet-version: '8.0.x'
             - name: Run tests
-              run: dotnet test Calculator.Tests/Calculator.Tests.csproj    
+              run: dotnet test Calculator.Tests/Calculator.Tests.csproj --configuration ${{matrix.configuration}}   
+    analyze:
+           needs: build-debug
+           runs-on: ubuntu-latest
+           steps:
+           - name: Checkout code
+             uses: actions/checkout@v4
+           - name: Run code analysis
+             run: dotnet tool install -g dotnet-format && dotnet format Calculator.Tests/Calculator.Tests.csproj
